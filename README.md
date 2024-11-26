@@ -9,7 +9,7 @@ The **Spam Filter Bot** is designed to counteract spam and scam messages in Disc
 2. **Link Detection**  
    Identifies messages containing suspicious links or Discord invite links.  
 3. **Keyword Detection**  
-   Flags messages containing specific keywords (e.g., "leak", "nude", etc.).  
+   Flags messages containing specific keywords (e.g., "fullstack", "blockchain", etc.).  
 4. **Mentions Detection**  
    Detects messages containing excessive mentions of `@everyone` or `@here`.  
 5. **AI-Based Scam Analysis**  
