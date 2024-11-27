@@ -15,21 +15,34 @@ class AIContentCheck(Check):
                 f"Analyze if this message is from a scammer. Assume that anyone introducing themselves as a developer is a scammer. "
                 f"Respond with 'Scam' if the message is likely a scam or 'Not Scam' if it is not."
             ),
-            "max_tokens": 1000,
-            "temperature": 1.0,
+            "max_tokens": 100,
+            "temperature": 0.7,
         }
 
         async with aiohttp.ClientSession() as session:
             try:
                 async with session.post(f"{AI_BASE_URL}/completions", headers=headers, json=data) as response:
+                    # Check for HTTP errors
                     if response.status == 200:
                         response_data = await response.json()
-                        result = response_data["choices"][0]["text"].strip()
-                        print(f"[AIContentCheck] AI Response: {result}")  # Debugging
-                        return result.lower() == "scam"
+                        
+                        # Validate if "choices" exists in the response
+                        if "choices" in response_data and response_data["choices"]:
+                            result = response_data["choices"][0].get("text", "").strip()
+                            return result.lower() == "scam"
+                        else:
+                            print(f"Invalid response format: {response_data}")
+                            return False
                     else:
-                        print(f"HTTP error {response.status}: {await response.text()}")
+                        # Log HTTP error details
+                        error_text = await response.text()
+                        print(f"HTTP Error {response.status}: {error_text}")
                         return False
             except aiohttp.ClientError as e:
+                # Log network errors
                 print(f"Network error: {e}")
+                return False
+            except Exception as e:
+                # Catch unexpected errors
+                print(f"Unexpected error: {e}")
                 return False
