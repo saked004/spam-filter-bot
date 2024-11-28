@@ -13,7 +13,7 @@ load_dotenv()
 # Minimum account age in days
 ACCOUNT_AGE_THRESHOLD = timedelta(days=5)
 # # Not case-sensitive, do not use plural forms.
-KEYWORD_LIST = ['fullstack', 'blockchain', 'web3', 'expert', "developer", "fam", "everyone", "passionate ", "collaborate", "I am a", "I'a a"]
+KEYWORD_LIST = ['fullstack', 'blockchain', 'web3', 'expert', "developer", "fam", "everyone", "passionate ", "collaborate", "I am a", "I'am a", "https"]
 # # The ID of the admin log channel where the bot will send the log messages
 # Replace with the IDs of the whitelisted channels
 ADMIN_LOG_CHANNEL_ID =os.getenv("ADMIN_LOG_CHANNEL_ID")
